@@ -701,7 +701,7 @@ $home='active';
                 }
                 , error: function(result) {
                     const toastLiveExample = document.getElementById('liveToast')
-                    console.log(result)
+                    alert(result)
                     document.getElementById('suscess-message').textContent = result
                     // document.getElementById('suscess-message').textContent = result.responseJSON.message
 
