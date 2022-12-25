@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
-    <link rel="shortcut icon" href="{{secure_asset('/movie.png')}}">
+    <link rel="shortcut icon" href="{{URL::asset('/movie.png')}}">
+
 
 
 
@@ -72,7 +73,6 @@
 
 </head>
 <body>
-    a
     {{-- <button type="button" class="btn btn-primary" id="liveToastBtn">
         Show live toast
     </button> --}}
