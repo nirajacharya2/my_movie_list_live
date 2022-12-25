@@ -701,7 +701,9 @@ $home='active';
                 }
                 , error: function(result) {
                     const toastLiveExample = document.getElementById('liveToast')
+                    console.log(result)
                     document.getElementById('suscess-message').textContent = result
+                    // document.getElementById('suscess-message').textContent = result.responseJSON.message
 
                     document.getElementById('req-status').textContent = "❌"
                     const toast = new bootstrap.Toast(toastLiveExample)
