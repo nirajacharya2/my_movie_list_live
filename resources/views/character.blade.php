@@ -12,7 +12,6 @@
     .fav-button {
         color: blue;
     }
-
     .fav-button:hover {
         color: white;
         background-color: blue;
