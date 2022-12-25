@@ -702,10 +702,11 @@ $home='active';
                 , error: function(result) {
                     const toastLiveExample = document.getElementById('liveToast')
                     alert(result)
-                    document.getElementById('suscess-message').textContent = result
+                    // document.getElementById('suscess-message').textContent = result
+                    // document.getElementById('suscess-message').textContent = result.response
                     // document.getElementById('suscess-message').textContent = result.responseJSON.message
 
-                    document.getElementById('req-status').textContent = "❌"
+                    document.getElementById('req-status').textContent = "❌ Failed"
                     const toast = new bootstrap.Toast(toastLiveExample)
                     toast.show()
 
