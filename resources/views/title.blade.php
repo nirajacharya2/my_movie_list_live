@@ -1,4 +1,4 @@
-@extends('app')
+@extends('app/app')
 @section('title')
 {{ $titleData->titlename }} - My Movie List - Title
 
@@ -309,7 +309,8 @@ $home='active';
                                     <div class="col">Members: {{ $noOfMebers }} </div>
                                 </div>
                                 <hr>
-                                <div class="row">
+                                <div id="btn-container" class="row" style="pointer-events: none;">
+
                                     <form action="javascript:void(0)" method="post" class="col visibleElem" id='addTitleFrm'>
                                         @csrf
                                         <div id='addTitle' class="col">
@@ -612,16 +613,6 @@ $home='active';
 @section('extraScripts')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script>
-    $.ajaxSetup({
-
-        headers: {
-
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-
-        }
-
-    });
-
     var userInfo = null;
     var favCount = parseInt("{{ $noOfFaviourite }}");
 
@@ -696,6 +687,11 @@ $home='active';
                 , data: jQuery('#addTitleFrm').serialize()
                 , type: 'post'
                 , success: function(result) {
+
+
+
+
+
                     userInfo = result.userTitelDetail;
                     console.log(userInfo)
                     document.getElementById('editDetails').classList.remove('hidden');
@@ -711,12 +707,9 @@ $home='active';
                 }
                 , error: function(result) {
                     const toastLiveExample = document.getElementById('liveToast')
-                    // alert(result)
-                    // document.getElementById('suscess-message').textContent = result
-                    // document.getElementById('suscess-message').textContent = result.response
-                    // document.getElementById('suscess-message').textContent = result.responseJSON.message
+                    document.getElementById('suscess-message').textContent = result.responseJSON.message
 
-                    document.getElementById('req-status').textContent = "❌ Failed"
+                    document.getElementById('req-status').textContent = "❌"
                     const toast = new bootstrap.Toast(toastLiveExample)
                     toast.show()
 
@@ -794,6 +787,10 @@ $home='active';
         }
     }
     $('document').ready(() => {
+        document.getElementById("btn-container").style.pointerEvents = "auto";
+
+
+
         userInfo = "{{ $userTitelDetail }}";
         console.log(userInfo);
         console.log("{{ $userTitelDetail }}");
@@ -1015,19 +1012,29 @@ $home='active';
         if (document.getElementById('exampleFormControlSelect11').value == 'Completed') {
             document.getElementById('episodes').value = "{{ $titleData->noOfEpisodes }}";
         }
+        document.getElementById("btn-container").style.pointerEvents = "auto";
         a();
+        document.getElementById("btn-container").style.pointerEvents = "auto";
     });
     document.getElementById('exampleFormControlSelect1').addEventListener('change', () => {
+        document.getElementById("btn-container").style.pointerEvents = "auto";
         a();
+        document.getElementById("btn-container").style.pointerEvents = "auto";
     });
     document.getElementById('episodes').addEventListener('change', () => {
+        document.getElementById("btn-container").style.pointerEvents = "auto";
         a();
+        document.getElementById("btn-container").style.pointerEvents = "auto";
     });
 
 
     jQuery('#addTitleFrm').click(function(e) {
+        document.getElementById("btn-container").style.pointerEvents = "auto";
         a();
+        document.getElementById("btn-container").style.pointerEvents = "auto";
+
     });
 
 </script>
 @endsection
+
