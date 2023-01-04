@@ -1,4 +1,4 @@
-@extends('app/app')
+@extends('app')
 @section('title')
 {{ $titleData->titlename }} - My Movie List - Title
 
