@@ -34,7 +34,7 @@ hi {{ $cum }}
         
     });
 
-    console.log("{{ $abc }}")
+    // console.log("{{ $abc }}")
     var c = 'happE';
 
 
@@ -43,13 +43,13 @@ hi {{ $cum }}
         d.id = id;
         d.textContent = content;
         document.body.appendChild(d);
-        console.log("{{ $cum }}")
+        // console.log("{{ $cum }}")
     }
 
     function writePhpCode(content) {
         var e = document.getElementById("extraphp");
         e.textContent = content;
-        console.log("{{ $cum }}")
+        // console.log("{{ $cum }}")
     }
 
 </script>
@@ -58,7 +58,7 @@ hi {{ $cum }}
 echo $abc;
 ?>
 <script>
-console.log('{{ $abc }}')
+// console.log('{{ $abc }}')
 </script>
 
 

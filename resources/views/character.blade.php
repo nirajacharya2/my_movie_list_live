@@ -123,7 +123,7 @@
     var favCount = parseInt("{{ $favCount }}");
 
 
-    console.log(faviourite)
+    // console.log(faviourite)
 
     $('document').ready(() => {
         if (faviourite && "{{ Session::has('userInfo') }}") {
@@ -134,10 +134,10 @@
     if ("{{ Session::has('userInfo') }}") {
 
         document.getElementById('addToFaviourite').addEventListener('click', () => {
-            console.log('clicked')
+            // console.log('clicked')
             if (faviourite) {
                 var url = "{{ route('addToFaviouriteChar',['char_id' => $characterDetail->char_id,'addOrRemove'=>0]) }}"
-                console.log(url)
+                // console.log(url)
 
                 jQuery.ajax({
                     url: url
@@ -160,7 +160,7 @@
                 , });
             } else {
                 var url = "{{ route('addToFaviouriteChar',['char_id' => $characterDetail->char_id,'addOrRemove'=>1]) }}"
-                console.log(url)
+                // console.log(url)
                 jQuery.ajax({
                     url: url
                     , type: 'get'

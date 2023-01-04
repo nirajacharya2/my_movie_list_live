@@ -786,13 +786,13 @@ $home='active';
     }
 
 
-    console.log('raw', reviews);
+    // console.log('raw', reviews);
 
     reviews = JSON.parse(reviews);
 
     var reviewIndex = 0;
     var commentIndex = 0;
-    console.log(reviews[0]);
+    // console.log(reviews[0]);
 
     function setEditReview() {
         document.getElementById('editExampleFormControlTextarea1').value = $("<div />").html(reviews[reviewIndex].rw_content).text().replaceAll('<br>', "\n");
@@ -804,8 +804,8 @@ $home='active';
     }
 
     function chkText() {
-        console.log(document.getElementById('exampleFormControlTextarea1').value)
-        console.log(document.getElementById('exampleFormControlTextarea1').value.length)
+        // console.log(document.getElementById('exampleFormControlTextarea1').value)
+        // console.log(document.getElementById('exampleFormControlTextarea1').value.length)
         if (document.getElementById('exampleFormControlTextarea1').value.length <= 0) {
             document.getElementById('commentaddbtn').disabled = true;
         } else {
@@ -822,7 +822,7 @@ $home='active';
         var url = "{{ route('deleteUserComment',['comment_id'=>':c'])}}";
         commentIndex = e.dataset.commentId;
         url = url.replace(':c', commentIndex);
-        console.log('editcom', url);
+        // console.log('editcom', url);
         jQuery.ajax({
             url: url
             , data: jQuery('#deleteComment').serialize()
@@ -857,7 +857,7 @@ $home='active';
         var url = "{{ route('addUsercomment', ['user_id' => $userData->user_id, 'comment' => ':a']) }}"
         url = url.replace(':a', encodeURIComponent(document.getElementById('exampleFormControlTextarea1').value.replace(/(?:\r\n|\r|\n)/g, '<br>')));
 
-        console.log(url);
+        // console.log(url);
         jQuery.ajax({
             url: url
             , data: jQuery('#addCommentFrm').serialize()
@@ -880,7 +880,7 @@ $home='active';
         url = url.replace(':a', encodeURIComponent(document.getElementById('editExampleFormControlTextarea1').value.replace(/(?:\r\n|\r|\n)/g, '<br>')));
 
         url = url.replace(':b', document.getElementById('invalidCheck').checked == true ? 1 : 0);
-        console.log('edit', url);
+        // console.log('edit', url);
         jQuery.ajax({
             url: url
             , data: jQuery('#addCommentFrm').serialize()
@@ -907,7 +907,7 @@ $home='active';
 
         var url = "{{ route('deleteTitleReview',['title_id' => ':c'])}}"
         url = url.replace(':c', reviews[reviewIndex].title_id);
-        console.log('edit', url);
+        // console.log('edit', url);
         jQuery.ajax({
             url: url
             , data: jQuery('#addCommentFrm').serialize()

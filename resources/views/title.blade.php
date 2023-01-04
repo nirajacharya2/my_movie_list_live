@@ -616,7 +616,7 @@ $home='active';
     var userInfo = null;
     var favCount = parseInt("{{ $noOfFaviourite }}");
 
-    console.log(userInfo);
+    // console.log(userInfo);
     jQuery('#commentaddbtn').click(function(e) {
         e.preventDefault();
         if (userInfo == '[]') {
@@ -625,7 +625,7 @@ $home='active';
             var url = "{{ route('addTitleReview',['title_id' => $titleData->title_id,'comment' => ':a','commentType'=>':b'])}}"
             url = url.replace(':a', encodeURIComponent(document.getElementById('exampleFormControlTextarea1').value.replace(/(?:\r\n|\r|\n)/g, '<br>')));
             url = url.replace(':b', document.getElementById('invalidCheck').checked == true ? 1 : 0);
-            console.log(url);
+            // console.log(url);
             jQuery.ajax({
                 url: url
                 , data: jQuery('#addCommentFrm').serialize()
@@ -662,7 +662,7 @@ $home='active';
     }
 
     function setEditDetails(userInfo) {
-        console.log(userInfo);
+        // console.log(userInfo);
         document.getElementById('editTitleName').textContent = "{{ $titleData->titlename }}";
         document.getElementById('editEpisodes').value = userInfo[0].ut_episodewatched;
         document.getElementById('editScore').value = userInfo[0].ut_score, (userInfo[0].ut_score == null ? '⭐Select' : userInfo[0].ut_score);
@@ -673,11 +673,11 @@ $home='active';
     }
 
     function a() {
-        console.log('a');
-        console.log(userInfo.length);
+        // console.log('a');
+        // console.log(userInfo.length);
         if (userInfo == '[]') {
             // e.preventDefault();
-            console.log("{{$titleData->id}}");
+            // console.log("{{$titleData->id}}");
             var www = document.getElementById('exampleFormControlSelect11').value;
             var scor = document.getElementById('exampleFormControlSelect1').value;
             var epi = document.getElementById('episodes').value;
@@ -693,10 +693,10 @@ $home='active';
 
 
                     userInfo = result.userTitelDetail;
-                    console.log(userInfo)
+                    // console.log(userInfo)
                     document.getElementById('editDetails').classList.remove('hidden');
                     setEditDetails(userInfo);
-                    console.log('here');
+                    // console.log('here');
                     titleaddBtnClick();
                     const toastLiveExample = document.getElementById('liveToast')
                     document.getElementById('suscess-message').textContent = "Added To Your List"
@@ -727,7 +727,7 @@ $home='active';
                 , success: function(result) {
                     // alert('success');
                     userInfo = result.userTitelDetail;
-                    console.log(result.userTitelDetail)
+                    // console.log(result.userTitelDetail)
                     document.getElementById('editDetails').classList.remove('hidden');
                     setEditDetails(userInfo);
                     // console.log('here');
@@ -747,7 +747,7 @@ $home='active';
 
                 }
             , });
-            console.log(url);
+            // console.log(url);
         }
     }
 
@@ -778,8 +778,8 @@ $home='active';
     }
 
     function chkText() {
-        console.log(document.getElementById('exampleFormControlTextarea1').value)
-        console.log(document.getElementById('exampleFormControlTextarea1').value.length)
+        // console.log(document.getElementById('exampleFormControlTextarea1').value)
+        // console.log(document.getElementById('exampleFormControlTextarea1').value.length)
         if (document.getElementById('exampleFormControlTextarea1').value.length <= 0) {
             document.getElementById('commentaddbtn').disabled = true;
         } else {
@@ -792,27 +792,27 @@ $home='active';
 
 
         userInfo = "{{ $userTitelDetail }}";
-        console.log(userInfo);
-        console.log("{{ $userTitelDetail }}");
+        // console.log(userInfo);
+        // console.log("{{ $userTitelDetail }}");
 
         if (userInfo != '[]' && userInfo != '' && userInfo != null) {
             userInfo = userInfo.replace(/&quot;/g, '\"');
-            console.log(userInfo);
+            // console.log(userInfo);
             userInfo = JSON.parse(userInfo);
             // console.log(userInfo);
             titleaddBtnClick();
             setInputData(userInfo);
             document.getElementById('editDetails').classList.remove('hidden');
             setEditDetails(userInfo);
-            console.log('here');
+            // console.log('here');
             if (userInfo[0].ut_faviourite) {
-                console.log('a')
+                // console.log('a')
                 document.getElementById('addToFaviourite').innerText = "Remove from Favioutite";
             }
         } else {
-            console.log(':p')
-            console.log(userInfo.length);
-            console.log(userInfo);
+            // console.log(':p')
+            // console.log(userInfo.length);
+            // console.log(userInfo);
 
         }
         if ("{{ Session::has('userInfo') }}") {
@@ -824,14 +824,14 @@ $home='active';
 
 
             document.getElementById('editDataSave').addEventListener('click', () => {
-                console.log('saveEditTitle');
+                // console.log('saveEditTitle');
                 var www = document.getElementById('editWatchStat').value;
                 var scor = document.getElementById('editScore').value;
                 var epi = document.getElementById('editWatchStat').value == 'Completed' ? "{{ $titleData->noOfEpisodes }}" : document.getElementById('editEpisodes').value;
                 var stDate = document.getElementById('editStartdate').value;
                 var edDate = document.getElementById('editFinishdate').value;
                 var url = "{{ route('/') }}" + `/saveEditTitle/{{ $titleData->title_id }}/${www}/${scor}/${epi}/${stDate}/${edDate}`;
-                console.log(url)
+                // console.log(url)
                 jQuery.ajax({
                     url: url
                     , type: 'get'
@@ -851,7 +851,7 @@ $home='active';
             });
             document.getElementById('addToFaviourite').addEventListener('click', () => {
                 // alert('clicked');
-                console.log(userInfo);
+                // console.log(userInfo);
                 if (userInfo == '[]') {
                     // alert('Add to list first')
                     const toastLiveExample = document.getElementById('liveToast')
@@ -862,7 +862,7 @@ $home='active';
 
                 } else if (userInfo[0].ut_faviourite) {
                     var url = "{{ route('addToFaviourite',['title_id' => $titleData->title_id,'addOrRemove'=>0]) }}"
-                    console.log('aaaaaa')
+                    // console.log('aaaaaa')
                     jQuery.ajax({
                         url: url
                         , type: 'get'
@@ -891,7 +891,7 @@ $home='active';
                     , });
                 } else {
                     var url = "{{ route('addToFaviourite',['title_id' => $titleData->title_id,'addOrRemove'=>1]) }}"
-                    console.log('bbbbb')
+                    // console.log('bbbbb')
                     jQuery.ajax({
                         url: url
                         , type: 'get'
@@ -955,7 +955,7 @@ $home='active';
     jQuery('#deleteTitle').click(function(e) {
         e.preventDefault();
         var url = "{{ route('deleteUserTitle',['title_id'=>$titleData->title_id]) }}"
-        console.log('edit', url);
+        // console.log('edit', url);
         jQuery.ajax({
             url: url
             , data: jQuery('#addCommentFrm').serialize()

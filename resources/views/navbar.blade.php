@@ -144,19 +144,19 @@ $titles= $staff= $users= $characters=null;
         document.getElementById("searchTextBox1").action = formUrl;
 
 
-        console.log(url);
-        console.log('formurl', formUrl);
+        // console.log(url);
+        // console.log('formurl', formUrl);
 
         jQuery.ajax({
             url: url
             , dataType: 'json'
             , type: 'get'
             , success: function(result) {
-                console.log('success');
-                console.log(result.searchTitles);
-                console.log(result.searchStaff);
-                console.log(result.searchUsers);
-                console.log(result.serchCharacter.length);
+                // console.log('success');
+                // console.log(result.searchTitles);
+                // console.log(result.searchStaff);
+                // console.log(result.searchUsers);
+                // console.log(result.serchCharacter.length);
 
                 var htmlTitle = '';
                 var htmlStaff = '';
@@ -270,7 +270,7 @@ $titles= $staff= $users= $characters=null;
                 </div>`);
             }
             , error: function(result) {
-                console.log('error');
+                // console.log('error');
                 // console.log(result);
             }
         , });
@@ -286,17 +286,17 @@ $titles= $staff= $users= $characters=null;
     });
 
     document.querySelector('#searchDiv').addEventListener('focusout', (e) => {
-        console.log(e.relatedTarget);
+        // console.log(e.relatedTarget);
         if (!document.querySelector('#searchDiv').contains(e.relatedTarget)) {
-            console.log('focus is now outside of container')
+            // console.log('focus is now outside of container')
             document.getElementById("searchResult").classList.add("hide");
         } else {
-            console.log('focus is now inside of container')
+            // console.log('focus is now inside of container')
         }
     });
 
     document.querySelector('#searchDiv').addEventListener('focus', (e) => {
-        console.log('focus is now inside of container')
+        // console.log('focus is now inside of container')
     });
 
 

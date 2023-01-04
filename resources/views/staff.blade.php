@@ -288,12 +288,12 @@
     <script>
         var faviourite = parseInt("{{ $faviouriteChar }}");
         var favCount = parseInt("{{ $favCount }}");
-        console.log((parseInt(faviourite)));
-        console.log(((faviourite)));
+        // console.log((parseInt(faviourite)));
+        // console.log(((faviourite)));
 
         function chkText() {
-            console.log(document.getElementById('exampleFormControlTextarea1').value)
-            console.log(document.getElementById('exampleFormControlTextarea1').value.length)
+            // console.log(document.getElementById('exampleFormControlTextarea1').value)
+            // console.log(document.getElementById('exampleFormControlTextarea1').value.length)
             if (document.getElementById('exampleFormControlTextarea1').value.length <= 0) {
                 document.getElementById('commentaddbtn').disabled = true;
             } else {
@@ -337,10 +337,10 @@
 
 
             document.getElementById('addToFaviourite').addEventListener('click', () => {
-                console.log('clicked')
+                // console.log('clicked')
                 if (faviourite) {
                     var url = "{{ route('addToFaviouriteStaff',['staff_id' => $staffDetail->staff_id,'addOrRemove'=>0]) }}"
-                    console.log(url)
+                    // console.log(url)
                     jQuery.ajax({
                         url: url
                         , type: 'get'
@@ -377,7 +377,7 @@
 
                 } else {
                     var url = "{{ route('addToFaviouriteStaff',['staff_id' => $staffDetail->staff_id,'addOrRemove'=>1]) }}"
-                    console.log(url)
+                    // console.log(url)
                     jQuery.ajax({
                         url: url
                         , type: 'get'
@@ -418,7 +418,7 @@
             var url = "{{ route('addStaffcomment',['staff_id' => $staffDetail->staff_id,'comment' => ':a'])}}"
             url = url.replace(':a', encodeURIComponent(document.getElementById('exampleFormControlTextarea1').value.replace(/(?:\r\n|\r|\n)/g, '<br>')));
 
-            console.log(url)
+            // console.log(url)
             jQuery.ajax({
                 url: url
                 , data: jQuery('#addCommentFrm').serialize()
