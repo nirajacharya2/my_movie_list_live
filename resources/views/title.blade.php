@@ -1012,17 +1012,19 @@ $home='active';
         if (document.getElementById('exampleFormControlSelect11').value == 'Completed') {
             document.getElementById('episodes').value = "{{ $titleData->noOfEpisodes }}";
         }
-        document.getElementById("btn-container").style.pointerEvents = "auto";
+        document.getElementById("btn-container").style.pointerEvents = "none";
         a();
         document.getElementById("btn-container").style.pointerEvents = "auto";
     });
     document.getElementById('exampleFormControlSelect1').addEventListener('change', () => {
-        document.getElementById("btn-container").style.pointerEvents = "auto";
+        document.getElementById("btn-container").style.pointerEvents = "none";
+
         a();
         document.getElementById("btn-container").style.pointerEvents = "auto";
     });
     document.getElementById('episodes').addEventListener('change', () => {
-        document.getElementById("btn-container").style.pointerEvents = "auto";
+        document.getElementById("btn-container").style.pointerEvents = "none";
+
         a();
         document.getElementById("btn-container").style.pointerEvents = "auto";
     });
