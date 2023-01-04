@@ -687,9 +687,7 @@ $home='active';
                 , data: jQuery('#addTitleFrm').serialize()
                 , type: 'post'
                 , success: function(result) {
-
-
-
+                    submitForm = true
 
 
                     userInfo = result.userTitelDetail;
@@ -706,6 +704,9 @@ $home='active';
 
                 }
                 , error: function(result) {
+                    submitForm = true
+
+
                     const toastLiveExample = document.getElementById('liveToast')
                     document.getElementById('suscess-message').textContent = result.responseJSON.message
 
@@ -725,6 +726,9 @@ $home='active';
                 url: url
                 , type: 'get'
                 , success: function(result) {
+                    submitForm = true
+
+
                     // alert('success');
                     userInfo = result.userTitelDetail;
                     // console.log(result.userTitelDetail)
@@ -738,6 +742,9 @@ $home='active';
                     changeComboStyle(document.getElementById('exampleFormControlSelect11').value);
                 }
                 , error: function(result) {
+                    submitForm = true
+
+
                     const toastLiveExample = document.getElementById('liveToast')
                     document.getElementById('suscess-message').textContent = result.responseJSON.message
 
@@ -749,6 +756,8 @@ $home='active';
             , });
             // console.log(url);
         }
+        // document.getElementById("btn-container").style.pointerEvents = "auto";
+
     }
 
     function readMore(btn) {
@@ -1012,31 +1021,46 @@ $home='active';
         if (document.getElementById('exampleFormControlSelect11').value == 'Completed') {
             document.getElementById('episodes').value = "{{ $titleData->noOfEpisodes }}";
         }
-        document.getElementById("btn-container").style.pointerEvents = "none";
-        a();
-        document.getElementById("btn-container").style.pointerEvents = "auto";
+        // document.getElementById("btn-container").style.pointerEvents = "none";
+        if (submitForm) {
+            submitForm = false
+            a();
+        }
+
+        // document.getElementById("btn-container").style.pointerEvents = "auto";
     });
     document.getElementById('exampleFormControlSelect1').addEventListener('change', () => {
-        document.getElementById("btn-container").style.pointerEvents = "none";
+        // document.getElementById("btn-container").style.pointerEvents = "none";
 
-        a();
-        document.getElementById("btn-container").style.pointerEvents = "auto";
+        if (submitForm) {
+            submitForm = false
+            a();
+        }
+
+        // document.getElementById("btn-container").style.pointerEvents = "auto";
     });
     document.getElementById('episodes').addEventListener('change', () => {
-        document.getElementById("btn-container").style.pointerEvents = "none";
+        // document.getElementById("btn-container").style.pointerEvents = "none";
 
-        a();
-        document.getElementById("btn-container").style.pointerEvents = "auto";
+        if (submitForm) {
+            submitForm = false
+            a();
+        }
+
+        // document.getElementById("btn-container").style.pointerEvents = "auto";
     });
 
 
     jQuery('#addTitleFrm').click(function(e) {
-        document.getElementById("btn-container").style.pointerEvents = "auto";
-        a();
-        document.getElementById("btn-container").style.pointerEvents = "auto";
+        // document.getElementById("btn-container").style.pointerEvents = "auto";
+        if (submitForm) {
+            submitForm = false
+            a();
+        }
+
+        // document.getElementById("btn-container").style.pointerEvents = "auto";
 
     });
 
 </script>
 @endsection
-
