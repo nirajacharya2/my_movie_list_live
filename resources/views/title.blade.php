@@ -861,6 +861,9 @@ $home='active';
             });
             document.getElementById('addToFaviourite').addEventListener('click', () => {
                 // alert('clicked');
+                submitForm = false
+                document.getElementById('suscess-message').textContent = "loading...cd"
+
                 // console.log(userInfo);
                 if (userInfo == '[]') {
                     // alert('Add to list first')
@@ -887,6 +890,9 @@ $home='active';
                             document.getElementById('suscess-message').textContent = "Removed from Favioutites"
                             const toast = new bootstrap.Toast(toastLiveExample)
                             toast.show()
+                            submitForm = true
+
+
 
                         }
                         , error: function(result) {
@@ -896,6 +902,9 @@ $home='active';
                             document.getElementById('req-status').textContent = "❌"
                             const toast = new bootstrap.Toast(toastLiveExample)
                             toast.show()
+                            submitForm = true
+
+
 
                         }
                     , });
@@ -916,6 +925,9 @@ $home='active';
                                 document.getElementById('suscess-message').textContent = "Added To Favioutites"
                                 const toast = new bootstrap.Toast(toastLiveExample)
                                 toast.show()
+                            submitForm = true
+
+
                             } else {
                                 // alert(result.responseErr);
                                 const toastLiveExample = document.getElementById('liveToast')
@@ -923,6 +935,8 @@ $home='active';
                                 document.getElementById('req-status').textContent = "❌"
                                 const toast = new bootstrap.Toast(toastLiveExample)
                                 toast.show()
+                            submitForm = true
+
 
                             }
                         }
@@ -933,6 +947,8 @@ $home='active';
                             document.getElementById('req-status').textContent = "❌"
                             const toast = new bootstrap.Toast(toastLiveExample)
                             toast.show()
+                            submitForm = true
+
 
                         }
                     , });
