@@ -861,99 +861,97 @@ $home='active';
             });
             document.getElementById('addToFaviourite').addEventListener('click', () => {
                 // alert('clicked');
-                submitForm = false
-                document.getElementById('suscess-message').textContent = "loading...cd"
+                // submitForm = false
 
-                // console.log(userInfo);
-                if (userInfo == '[]') {
-                    // alert('Add to list first')
-                    const toastLiveExample = document.getElementById('liveToast')
-                    document.getElementById('suscess-message').textContent = "Add to list first"
-
-                    const toast = new bootstrap.Toast(toastLiveExample)
-                    toast.show()
-
-                } else if (userInfo[0].ut_faviourite) {
-                    var url = "{{ route('addToFaviourite',['title_id' => $titleData->title_id,'addOrRemove'=>0]) }}"
-                    // console.log('aaaaaa')
-                    jQuery.ajax({
-                        url: url
-                        , type: 'get'
-                        , success: function(result) {
-                            // alert('success');
-                            userInfo[0].ut_faviourite = 0;
-                            favCount--;
-                            document.getElementById('addToFaviourite').innerText = "Add To Favioutite";
-                            document.getElementById('favCounter').innerHTML = "<strong>Favorites:</strong>" + favCount;
-
-                            const toastLiveExample = document.getElementById('liveToast')
-                            document.getElementById('suscess-message').textContent = "Removed from Favioutites"
-                            const toast = new bootstrap.Toast(toastLiveExample)
-                            toast.show()
-                            submitForm = true
+                console.log(userInfo);
+                if (submitForm) {
+                    document.getElementById('addToFaviourite').textContent = "loading..."
+                    submitForm = false
 
 
+                    if (userInfo == '[]') {
+                        // alert('Add to list first')
+                        const toastLiveExample = document.getElementById('liveToast')
+                        document.getElementById('suscess-message').textContent = "Add to list first"
 
-                        }
-                        , error: function(result) {
-                            const toastLiveExample = document.getElementById('liveToast')
-                            document.getElementById('suscess-message').textContent = result.responseJSON.message
+                        const toast = new bootstrap.Toast(toastLiveExample)
+                        toast.show()
 
-                            document.getElementById('req-status').textContent = "❌"
-                            const toast = new bootstrap.Toast(toastLiveExample)
-                            toast.show()
-                            submitForm = true
+                    } else if (userInfo[0].ut_faviourite) {
+                        var url = "{{ route('addToFaviourite',['title_id' => $titleData->title_id,'addOrRemove'=>0]) }}"
+                        console.log('aaaaaa')
+                        jQuery.ajax({
+                            url: url
+                            , type: 'get'
+                            , success: function(result) {
+                                // alert('success');
+                                userInfo[0].ut_faviourite = 0;
+                                favCount--;
+                                document.getElementById('addToFaviourite').innerText = "Add To Favioutite";
+                                document.getElementById('favCounter').innerHTML = "<strong>Favorites:</strong>" + favCount;
 
-
-
-                        }
-                    , });
-                } else {
-                    var url = "{{ route('addToFaviourite',['title_id' => $titleData->title_id,'addOrRemove'=>1]) }}"
-                    // console.log('bbbbb')
-                    jQuery.ajax({
-                        url: url
-                        , type: 'get'
-                        , success: function(result) {
-                            // alert('success');
-                            if (result.responseErr != 'Already have max favorite movie added') {
-                                userInfo[0].ut_faviourite = 1;
-                                favCount++;
-                                document.getElementById('addToFaviourite').innerText = "Remove from Favioutite";
-                                document.getElementById('favCounter').innerHTML = "<strong>Favorites:</strong> " + favCount;
                                 const toastLiveExample = document.getElementById('liveToast')
-                                document.getElementById('suscess-message').textContent = "Added To Favioutites"
+                                document.getElementById('suscess-message').textContent = "Removed from Favioutites"
                                 const toast = new bootstrap.Toast(toastLiveExample)
                                 toast.show()
-                            submitForm = true
+                                submitForm = true
 
-
-                            } else {
-                                // alert(result.responseErr);
+                            }
+                            , error: function(result) {
                                 const toastLiveExample = document.getElementById('liveToast')
-                                document.getElementById('suscess-message').textContent = result.responseErr
+                                document.getElementById('suscess-message').textContent = result.responseJSON.message
+
                                 document.getElementById('req-status').textContent = "❌"
                                 const toast = new bootstrap.Toast(toastLiveExample)
                                 toast.show()
-                            submitForm = true
-
+                                submitForm = true
 
                             }
-                        }
-                        , error: function(result) {
-                            const toastLiveExample = document.getElementById('liveToast')
-                            document.getElementById('suscess-message').textContent = result.responseJSON.message
+                        , });
+                    } else {
+                        var url = "{{ route('addToFaviourite',['title_id' => $titleData->title_id,'addOrRemove'=>1]) }}"
+                        console.log('bbbbb')
+                        jQuery.ajax({
+                            url: url
+                            , type: 'get'
+                            , success: function(result) {
+                                // alert('success');
+                                if (result.responseErr != 'Already have max favorite movie added') {
+                                    userInfo[0].ut_faviourite = 1;
+                                    favCount++;
+                                    document.getElementById('addToFaviourite').innerText = "Remove from Favioutite";
+                                    document.getElementById('favCounter').innerHTML = "<strong>Favorites:</strong> " + favCount;
+                                    const toastLiveExample = document.getElementById('liveToast')
+                                    document.getElementById('suscess-message').textContent = "Added To Favioutites"
+                                    const toast = new bootstrap.Toast(toastLiveExample)
+                                    toast.show()
+                                    submitForm = true
 
-                            document.getElementById('req-status').textContent = "❌"
-                            const toast = new bootstrap.Toast(toastLiveExample)
-                            toast.show()
-                            submitForm = true
+                                } else {
+                                    // alert(result.responseErr);
+                                    const toastLiveExample = document.getElementById('liveToast')
+                                    document.getElementById('suscess-message').textContent = result.responseErr
+                                    document.getElementById('req-status').textContent = "❌"
+                                    const toast = new bootstrap.Toast(toastLiveExample)
+                                    toast.show()
+                                    submitForm = true
 
+                                }
+                            }
+                            , error: function(result) {
+                                const toastLiveExample = document.getElementById('liveToast')
+                                document.getElementById('suscess-message').textContent = result.responseJSON.message
 
-                        }
-                    , });
+                                document.getElementById('req-status').textContent = "❌"
+                                const toast = new bootstrap.Toast(toastLiveExample)
+                                toast.show()
+
+                            }
+                        , });
+                    }
                 }
             });
+
 
         } else {
             disableButtons();
