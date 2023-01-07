@@ -283,7 +283,8 @@ $first=true;
                         {{ $topTitles[$i][0]->titlename }}
                     </a>
                 </div>
-                <div><small>Aired: {{ $topTitles[$i][0]->startdate }}</small></div>
+                <div><small>Aired: {{ $topTitles[$i][0]->startdate==null?"N/A":$topTitles[$i][0]->startdate }}</small></div>
+
                 <div><small>Members: {{ $topTitles[$i][0]->members }}</small></div>
                 <div><small>Rating: {{ $topTitles[$i][0]->avrage_rating==null?"N/A":round($topTitles[$i][0]->avrage_rating,2) }}</small></div>
             </div>

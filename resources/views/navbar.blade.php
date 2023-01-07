@@ -36,7 +36,7 @@
 
     @media screen and (max-width: 575px) {
         #searchResult {
-            margin-top: 10px auto;
+            /* margin-top: 10px auto; */
 
 
             width: 300px;
