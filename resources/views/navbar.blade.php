@@ -34,6 +34,24 @@
 
     }
 
+    @media screen and (max-width: 575px) {
+        #searchResult {
+            margin-top: 10px auto;
+
+
+            width: 300px;
+            /* left: 1em; */
+            top: 13.5em;
+            right: 0;
+            left: 0;
+            /* left: -15rem; */
+
+        }
+
+
+
+    }
+
 </style>
 
 @php

@@ -66,6 +66,8 @@
             text-decoration: underline;
         }
 
+        
+
     </style>
     @stack('css')
     @stack('script')
