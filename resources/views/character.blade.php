@@ -12,6 +12,7 @@
     .fav-button {
         color: blue;
     }
+
     .fav-button:hover {
         color: white;
         background-color: blue;
@@ -123,6 +124,7 @@
     var favCount = parseInt("{{ $favCount }}");
 
 
+    var submitForm = true;
     // console.log(faviourite)
 
     $('document').ready(() => {
@@ -133,59 +135,67 @@
     })
     if ("{{ Session::has('userInfo') }}") {
 
+
         document.getElementById('addToFaviourite').addEventListener('click', () => {
-            // console.log('clicked')
-            if (faviourite) {
-                var url = "{{ route('addToFaviouriteChar',['char_id' => $characterDetail->char_id,'addOrRemove'=>0]) }}"
-                // console.log(url)
-
-                jQuery.ajax({
-                    url: url
-                    , type: 'get'
-                    , success: function(result) {
-                        // alert('success');
-                        if (result.responseErr != 'Already have max favorite movie added') {
-                            faviourite = 0;
-                            favCount = favCount - 1;
-                            document.getElementById('addToFaviourite').innerText = "Add To Favioutite";
-                            document.getElementById('favCounter').innerHTML = 'Member Favorites: ' + favCount;
-                        } else {
-                            alert(result.responseErr);
-                        }
-                    }
-                    , error: function(result) {
-                        alert('error');
-                        alert(result);
-                    }
-                , });
-            } else {
-                var url = "{{ route('addToFaviouriteChar',['char_id' => $characterDetail->char_id,'addOrRemove'=>1]) }}"
-                // console.log(url)
-                jQuery.ajax({
-                    url: url
-                    , type: 'get'
-                    , success: function(result) {
-                        // alert('success');
-                        if (result.responseErr != 'Already have max favorite movie added') {
-                            faviourite = 1;
-                            favCount = favCount + 1;
-                            document.getElementById('addToFaviourite').innerText = "Remove from Favioutite";
-                            document.getElementById('favCounter').innerHTML = 'Member Favorites: ' + favCount;
-                        } else {
-                            alert(result.responseErr);
-                        }
-                    }
-                    , error: function(result) {
-                        alert('error');
-                        alert(result);
+                if (submitForm) {
+                    document.getElementById('addToFaviourite').textContent = "loading..."
 
 
-                    }
-                , });
-            }
-        });
+                    submitForm = false
 
-    }
+                    // console.log('clicked')
+                    if (faviourite) {
+                        var url = "{{ route('addToFaviouriteChar',['char_id' => $characterDetail->char_id,'addOrRemove'=>0]) }}"
+                        // console.log(url)
+
+                        jQuery.ajax({
+                            url: url
+                            , type: 'get'
+                            , success: function(result) {
+                                // alert('success');
+                                if (result.responseErr != 'Already have max favorite movie added') {
+                                    faviourite = 0;
+                                    favCount = favCount - 1;
+                                    document.getElementById('addToFaviourite').innerText = "Add To Favioutite";
+                                    document.getElementById('favCounter').innerHTML = 'Member Favorites: ' + favCount;
+                                } else {
+                                    alert(result.responseErr);
+                                }
+                            }
+                            , error: function(result) {
+                                alert('error');
+                                alert(result);
+                            }
+                        , });
+                    } else {
+                        var url = "{{ route('addToFaviouriteChar',['char_id' => $characterDetail->char_id,'addOrRemove'=>1]) }}"
+                        // console.log(url)
+                        jQuery.ajax({
+                            url: url
+                            , type: 'get'
+                            , success: function(result) {
+                                // alert('success');
+                                if (result.responseErr != 'Already have max favorite movie added') {
+                                    faviourite = 1;
+                                    favCount = favCount + 1;
+                                    document.getElementById('addToFaviourite').innerText = "Remove from Favioutite";
+                                    document.getElementById('favCounter').innerHTML = 'Member Favorites: ' + favCount;
+                                } else {
+                                    alert(result.responseErr);
+                                }
+                            }
+                            , error: function(result) {
+                                alert('error');
+                                alert(result);
+
+
+                            }
+                        , });
+                    }
+
+                });
+
+        }
 
 </script>
 @endsection

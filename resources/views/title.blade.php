@@ -863,7 +863,7 @@ $home='active';
                 // alert('clicked');
                 // submitForm = false
 
-                console.log(userInfo);
+                // console.log(userInfo);
                 if (submitForm) {
                     document.getElementById('addToFaviourite').textContent = "loading..."
                     submitForm = false

@@ -62,73 +62,73 @@
                 <div>
                     <h5><strong>Information</strong></h5>
                     <hr>
-                    <div >
+                    <div>
                         @if($staffDetail->firstname!=null)
                         <strong>Firstname: </strong>{{ $staffDetail->firstname }}
                         <hr>
                         @endif
                     </div>
-                    <div >
+                    <div>
                         @if($staffDetail->miiddlename!=null)
                         <strong>Middlename: </strong>{{ $staffDetail->miiddlename }}
                         <hr>
                         @endif
                     </div>
-                    <div >
+                    <div>
                         @if($staffDetail->lastname !=null)
                         <strong>Lastname: </strong>{{ $staffDetail->lastname  }}
                         <hr>
                         @endif
                     </div>
-                    <div >
+                    <div>
                         @if($staffDetail->staff_dob !=null)
                         <strong>Birthday: </strong>{{ $staffDetail->staff_dob  }}
                         <hr>
                         @endif
                     </div>
-                    <div >
+                    <div>
                         @if($staffDetail->staff_sex !=null)
                         <strong>Gender: </strong>{{ $staffDetail->staff_sex? "Male":"Female"  }}
                         <hr>
                         @endif
                     </div>
-                    <div >
+                    <div>
                         @if($staffDetail->height !=null)
                         <strong>Height: </strong>{{ $staffDetail->height  }}
                         <hr>
                         @endif
                     </div>
-                    <div >
+                    <div>
                         @if($staffDetail->stagename !=null)
                         <strong>Stagename: </strong>{{ $staffDetail->stagename  }}
                         <hr>
                         @endif
                     </div>
-                    <div >
+                    <div>
                         @if($staffDetail->biography !=null)
                         <strong>Biography: </strong>{{ $staffDetail->biography  }}
                         <hr>
                         @endif
                     </div>
-                    <div >
+                    <div>
                         @if($staffDetail->staff_bloodtype !=null)
                         <strong>Blood Type: </strong>{{ $staffDetail->staff_bloodtype  }}
                         <hr>
                         @endif
                     </div>
-                    <div >
+                    <div>
                         @if($staffDetail->staff_spouse !=null)
                         <strong>Spouse: </strong>{{ $staffDetail->staff_spouse  }}
                         <hr>
                         @endif
                     </div>
-                    <div >
+                    <div>
                         @if($staffDetail->staff_award !=null)
                         <strong>Awards: </strong>{{ $staffDetail->staff_award  }}
                         <hr>
                         @endif
                     </div>
-                    <div >
+                    <div>
                         @if($staffDetail->staff_hobby !=null)
                         <strong>Hobbys: </strong>{{ $staffDetail->staff_hobby  }}
                         <hr>
@@ -288,6 +288,8 @@
     <script>
         var faviourite = parseInt("{{ $faviouriteChar }}");
         var favCount = parseInt("{{ $favCount }}");
+        var submitForm = true
+
         // console.log((parseInt(faviourite)));
         // console.log(((faviourite)));
 
@@ -338,74 +340,82 @@
 
             document.getElementById('addToFaviourite').addEventListener('click', () => {
                 // console.log('clicked')
-                if (faviourite) {
-                    var url = "{{ route('addToFaviouriteStaff',['staff_id' => $staffDetail->staff_id,'addOrRemove'=>0]) }}"
-                    // console.log(url)
-                    jQuery.ajax({
-                        url: url
-                        , type: 'get'
-                        , success: function(result) {
-                            // alert('success');
-                            if (result.responseErr != 'Already have max favorite movie added') {
-                                faviourite = 0;
-                                favCount = favCount - 1;
-                                document.getElementById('addToFaviourite').innerText = "Add To Favioutite";
-                                // document.getElementById('favCounter').innerHTML = '<ol><li>html data</li></ol>';
-                                document.getElementById('favCounter').innerHTML = '<strong>Member Favorites: </strong>' + favCount;
-                                const toastLiveExample = document.getElementsByClassName('toast')[0];
 
-                                document.getElementById('suscess-message').textContent = "Removed from Favioutite"
-                                const toast = new bootstrap.Toast(toastLiveExample, {
-                                    animation: true
-                                    , delay: 5000
-                                })
-                                toast.show()
-                            } else {
-                                alert(result.responseErr);
+                if (submitForm) {
+                    document.getElementById('addToFaviourite').textContent = "loading..."
+
+
+                    submitForm = false
+
+                    if (faviourite) {
+                        var url = "{{ route('addToFaviouriteStaff',['staff_id' => $staffDetail->staff_id,'addOrRemove'=>0]) }}"
+                        // console.log(url)
+                        jQuery.ajax({
+                            url: url
+                            , type: 'get'
+                            , success: function(result) {
+                                // alert('success');
+                                if (result.responseErr != 'Already have max favorite movie added') {
+                                    faviourite = 0;
+                                    favCount = favCount - 1;
+                                    document.getElementById('addToFaviourite').innerText = "Add To Favioutite";
+                                    // document.getElementById('favCounter').innerHTML = '<ol><li>html data</li></ol>';
+                                    document.getElementById('favCounter').innerHTML = '<strong>Member Favorites: </strong>' + favCount;
+                                    const toastLiveExample = document.getElementsByClassName('toast')[0];
+
+                                    document.getElementById('suscess-message').textContent = "Removed from Favioutite"
+                                    const toast = new bootstrap.Toast(toastLiveExample, {
+                                        animation: true
+                                        , delay: 5000
+                                    })
+                                    toast.show()
+                                } else {
+                                    alert(result.responseErr);
+                                }
                             }
-                        }
-                        , error: function(result) {
-                            const toastLiveExample = document.getElementById('liveToast')
-                            document.getElementById('suscess-message').textContent = result
-                            document.getElementById('req-status').textContent = "❌"
-                            const toast = new bootstrap.Toast(toastLiveExample)
-                            toast.show()
-
-                        }
-                    , });
-
-
-                } else {
-                    var url = "{{ route('addToFaviouriteStaff',['staff_id' => $staffDetail->staff_id,'addOrRemove'=>1]) }}"
-                    // console.log(url)
-                    jQuery.ajax({
-                        url: url
-                        , type: 'get'
-                        , success: function(result) {
-                            // alert('success');
-                            if (result.responseErr != 'Already have max favorite movie added') {
-                                faviourite = 1;
-                                favCount = favCount + 1;
-                                document.getElementById('addToFaviourite').innerText = "Remove from Favioutite";
-                                document.getElementById('favCounter').innerHTML = '<strong>Member Favorites: </strong>' + favCount;
-                                // const toastLiveExample = document.getElementById('liveToast')
-                                const toastLiveExample = document.getElementsByClassName('toast')[0];
-                                document.getElementById('suscess-message').textContent = "Added to Favorites"
+                            , error: function(result) {
+                                const toastLiveExample = document.getElementById('liveToast')
+                                document.getElementById('suscess-message').textContent = result
+                                document.getElementById('req-status').textContent = "❌"
                                 const toast = new bootstrap.Toast(toastLiveExample)
                                 toast.show()
-                            } else {
-                                alert(result.responseErr);
-                            }
-                        }
-                        , error: function(result) {
-                            const toastLiveExample = document.getElementById('liveToast')
-                            document.getElementById('suscess-message').textContent = result
-                            document.getElementById('req-status').textContent = "❌"
-                            const toast = new bootstrap.Toast(toastLiveExample)
-                            toast.show()
 
-                        }
-                    , });
+                            }
+                        , });
+
+
+                    } else {
+                        var url = "{{ route('addToFaviouriteStaff',['staff_id' => $staffDetail->staff_id,'addOrRemove'=>1]) }}"
+                        // console.log(url)
+                        jQuery.ajax({
+                            url: url
+                            , type: 'get'
+                            , success: function(result) {
+                                // alert('success');
+                                if (result.responseErr != 'Already have max favorite movie added') {
+                                    faviourite = 1;
+                                    favCount = favCount + 1;
+                                    document.getElementById('addToFaviourite').innerText = "Remove from Favioutite";
+                                    document.getElementById('favCounter').innerHTML = '<strong>Member Favorites: </strong>' + favCount;
+                                    // const toastLiveExample = document.getElementById('liveToast')
+                                    const toastLiveExample = document.getElementsByClassName('toast')[0];
+                                    document.getElementById('suscess-message').textContent = "Added to Favorites"
+                                    const toast = new bootstrap.Toast(toastLiveExample)
+                                    toast.show()
+                                } else {
+                                    alert(result.responseErr);
+                                }
+                            }
+                            , error: function(result) {
+                                const toastLiveExample = document.getElementById('liveToast')
+                                document.getElementById('suscess-message').textContent = result
+                                document.getElementById('req-status').textContent = "❌"
+                                const toast = new bootstrap.Toast(toastLiveExample)
+                                toast.show()
+
+                            }
+                        , });
+                    }
                 }
             });
         }
