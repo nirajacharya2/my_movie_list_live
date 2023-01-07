@@ -71,6 +71,17 @@
         filter: blur(0px);
     }
 
+    .bluryUnclick {
+        filter: blur(5px);
+        transition-property: -webkit-filter;
+        transition-duration: .4s;
+        pointer-events: none;
+    }
+
+    .noPointer {
+        pointer-events: none;
+    }
+
 </style>
 @php
 $imageWidth='250px';
@@ -309,8 +320,8 @@ $home='active';
                                     <div class="col">Members: {{ $noOfMebers }} </div>
                                 </div>
                                 <hr>
-                                <div id="btn-container" class="row" style="pointer-events: none;">
-
+                                <div id="btn-container" class="row noPointer">
+                                    {{-- <div id="loading"> --}}
                                     <form action="javascript:void(0)" method="post" class="col visibleElem" id='addTitleFrm'>
                                         @csrf
                                         <div id='addTitle' class="col">
@@ -344,7 +355,9 @@ $home='active';
                                     <div class="col">
                                         <input type="number" id="episodes" value='0' class="form-control m-2" max="{{ $titleData->noOfEpisodes }}" min="0">
                                     </div>
+                                    {{-- </div> --}}
                                 </div>
+
                             </div>
                             <hr>
                             <h5 class="text-start"><strong>Synopsis</strong> </h5>
@@ -617,7 +630,6 @@ $home='active';
     var submitForm = true;
     var favCount = parseInt("{{ $noOfFaviourite }}");
 
-    // console.log(userInfo);
     jQuery('#commentaddbtn').click(function(e) {
         e.preventDefault();
         if (userInfo == '[]') {
@@ -626,20 +638,16 @@ $home='active';
             var url = "{{ route('addTitleReview',['title_id' => $titleData->title_id,'comment' => ':a','commentType'=>':b'])}}"
             url = url.replace(':a', encodeURIComponent(document.getElementById('exampleFormControlTextarea1').value.replace(/(?:\r\n|\r|\n)/g, '<br>')));
             url = url.replace(':b', document.getElementById('invalidCheck').checked == true ? 1 : 0);
-            // console.log(url);
             jQuery.ajax({
                 url: url
                 , data: jQuery('#addCommentFrm').serialize()
                 , type: 'post'
                 , success: function(result) {
-                    // alert('success');
                     location.reload();
-                    // a();
                 }
                 , error: function(result) {
                     const toastLiveExample = document.getElementById('liveToast')
                     document.getElementById('suscess-message').textContent = result.responseJSON.message.split(':')[0] == 'SQLSTATE[23000]' ? "You have already added review to this title edit it or delete to submit again" : 'try again';
-                    // console.log(result.responseJSON.message.split(':')[0]);
                     document.getElementById('req-status').textContent = "❌"
                     const toast = new bootstrap.Toast(toastLiveExample)
                     toast.show()
@@ -659,11 +667,9 @@ $home='active';
         document.getElementById('titleaddBtn').disabled = true;
         document.getElementById('exampleFormControlSelect1').disabled = true;
         document.getElementById('episodes').disabled = true;
-        // console.log('bbbbb');
     }
 
     function setEditDetails(userInfo) {
-        // console.log(userInfo);
         document.getElementById('editTitleName').textContent = "{{ $titleData->titlename }}";
         document.getElementById('editEpisodes').value = userInfo[0].ut_episodewatched;
         document.getElementById('editScore').value = userInfo[0].ut_score, (userInfo[0].ut_score == null ? '⭐Select' : userInfo[0].ut_score);
@@ -674,11 +680,8 @@ $home='active';
     }
 
     function a() {
-        // console.log('a');
-        // console.log(userInfo.length);
+        document.getElementById('btn-container').classList.add("bluryUnclick");
         if (userInfo == '[]') {
-            // e.preventDefault();
-            // console.log("{{$titleData->id}}");
             var www = document.getElementById('exampleFormControlSelect11').value;
             var scor = document.getElementById('exampleFormControlSelect1').value;
             var epi = document.getElementById('episodes').value;
@@ -692,16 +695,16 @@ $home='active';
 
 
                     userInfo = result.userTitelDetail;
-                    // console.log(userInfo)
                     document.getElementById('editDetails').classList.remove('hidden');
                     setEditDetails(userInfo);
-                    // console.log('here');
                     titleaddBtnClick();
                     const toastLiveExample = document.getElementById('liveToast')
                     document.getElementById('suscess-message').textContent = "Added To Your List"
                     const toast = new bootstrap.Toast(toastLiveExample)
                     toast.show()
                     changeComboStyle("Watching");
+                    document.getElementById('btn-container').classList.remove("bluryUnclick");
+
 
                 }
                 , error: function(result) {
@@ -714,6 +717,8 @@ $home='active';
                     document.getElementById('req-status').textContent = "❌"
                     const toast = new bootstrap.Toast(toastLiveExample)
                     toast.show()
+                    document.getElementById('btn-container').classList.remove("bluryUnclick");
+
 
 
                 }
@@ -729,18 +734,17 @@ $home='active';
                 , success: function(result) {
                     submitForm = true
 
-
-                    // alert('success');
                     userInfo = result.userTitelDetail;
-                    // console.log(result.userTitelDetail)
                     document.getElementById('editDetails').classList.remove('hidden');
                     setEditDetails(userInfo);
-                    // console.log('here');
                     const toastLiveExample = document.getElementById('liveToast')
                     document.getElementById('suscess-message').textContent = "Edited Title Status"
                     const toast = new bootstrap.Toast(toastLiveExample)
                     toast.show()
                     changeComboStyle(document.getElementById('exampleFormControlSelect11').value);
+                    document.getElementById('btn-container').classList.remove("bluryUnclick");
+
+
                 }
                 , error: function(result) {
                     submitForm = true
@@ -752,12 +756,12 @@ $home='active';
                     document.getElementById('req-status').textContent = "❌"
                     const toast = new bootstrap.Toast(toastLiveExample)
                     toast.show()
+                    document.getElementById('btn-container').classList.remove("bluryUnclick");
+
 
                 }
             , });
-            // console.log(url);
         }
-        // document.getElementById("btn-container").style.pointerEvents = "auto";
 
     }
 
@@ -772,7 +776,6 @@ $home='active';
         let noOfCharac = 150;
         let contents = document.querySelectorAll(".content");
         contents.forEach(content => {
-            //If text length is less that noOfCharac... then hide the read more button
             if (content.textContent.includes('<br>')) {
                 let displayText = content.textContent.slice('<br>');
                 let moreText = content.textContent;
@@ -788,8 +791,6 @@ $home='active';
     }
 
     function chkText() {
-        // console.log(document.getElementById('exampleFormControlTextarea1').value)
-        // console.log(document.getElementById('exampleFormControlTextarea1').value.length)
         if (document.getElementById('exampleFormControlTextarea1').value.length <= 0) {
             document.getElementById('commentaddbtn').disabled = true;
         } else {
@@ -797,32 +798,22 @@ $home='active';
         }
     }
     $('document').ready(() => {
-        document.getElementById("btn-container").style.pointerEvents = "auto";
+        document.getElementById('btn-container').classList.remove("noPointer");
 
 
 
         userInfo = "{{ $userTitelDetail }}";
-        // console.log(userInfo);
-        // console.log("{{ $userTitelDetail }}");
-
         if (userInfo != '[]' && userInfo != '' && userInfo != null) {
             userInfo = userInfo.replace(/&quot;/g, '\"');
-            // console.log(userInfo);
             userInfo = JSON.parse(userInfo);
-            // console.log(userInfo);
             titleaddBtnClick();
             setInputData(userInfo);
             document.getElementById('editDetails').classList.remove('hidden');
             setEditDetails(userInfo);
-            // console.log('here');
             if (userInfo[0].ut_faviourite) {
-                // console.log('a')
                 document.getElementById('addToFaviourite').innerText = "Remove from Favioutite";
             }
         } else {
-            // console.log(':p')
-            // console.log(userInfo.length);
-            // console.log(userInfo);
 
         }
         if ("{{ Session::has('userInfo') }}") {
@@ -834,14 +825,12 @@ $home='active';
 
 
             document.getElementById('editDataSave').addEventListener('click', () => {
-                // console.log('saveEditTitle');
                 var www = document.getElementById('editWatchStat').value;
                 var scor = document.getElementById('editScore').value;
                 var epi = document.getElementById('editWatchStat').value == 'Completed' ? "{{ $titleData->noOfEpisodes }}" : document.getElementById('editEpisodes').value;
                 var stDate = document.getElementById('editStartdate').value;
                 var edDate = document.getElementById('editFinishdate').value;
                 var url = "{{ route('/') }}" + `/saveEditTitle/{{ $titleData->title_id }}/${www}/${scor}/${epi}/${stDate}/${edDate}`;
-                // console.log(url)
                 jQuery.ajax({
                     url: url
                     , type: 'get'
@@ -860,17 +849,13 @@ $home='active';
                 , });
             });
             document.getElementById('addToFaviourite').addEventListener('click', () => {
-                // alert('clicked');
-                // submitForm = false
 
-                // console.log(userInfo);
                 if (submitForm) {
                     document.getElementById('addToFaviourite').textContent = "loading..."
                     submitForm = false
 
 
                     if (userInfo == '[]') {
-                        // alert('Add to list first')
                         const toastLiveExample = document.getElementById('liveToast')
                         document.getElementById('suscess-message').textContent = "Add to list first"
 
@@ -886,7 +871,6 @@ $home='active';
                             url: url
                             , type: 'get'
                             , success: function(result) {
-                                // alert('success');
                                 userInfo[0].ut_faviourite = 0;
                                 favCount--;
                                 document.getElementById('addToFaviourite').innerText = "Add To Favioutite";
@@ -917,7 +901,6 @@ $home='active';
                             url: url
                             , type: 'get'
                             , success: function(result) {
-                                // alert('success');
                                 if (result.responseErr != 'Already have max favorite movie added') {
                                     userInfo[0].ut_faviourite = 1;
                                     favCount++;
@@ -930,7 +913,6 @@ $home='active';
                                     submitForm = true
 
                                 } else {
-                                    // alert(result.responseErr);
                                     const toastLiveExample = document.getElementById('liveToast')
                                     document.getElementById('suscess-message').textContent = result.responseErr
                                     document.getElementById('req-status').textContent = "❌"
@@ -961,7 +943,6 @@ $home='active';
         let noOfCharac = 150;
         let contents = document.querySelectorAll(".content");
         contents.forEach(content => {
-            //If text length is less that noOfCharac... then hide the read more button
             if (content.textContent.includes('<br>')) {
                 let displayText = content.textContent.slice('<br>');
                 let moreText = content.textContent;
@@ -981,17 +962,12 @@ $home='active';
     jQuery('#deleteTitle').click(function(e) {
         e.preventDefault();
         var url = "{{ route('deleteUserTitle',['title_id'=>$titleData->title_id]) }}"
-        // console.log('edit', url);
         jQuery.ajax({
             url: url
             , data: jQuery('#addCommentFrm').serialize()
             , type: 'post'
             , success: function(result) {
-                // alert('success');
-                // $("#reviewTab").load(window.location.href + " #reviewTab");
-                // $("#reviewsHome").load(window.location.href + " #reviewsHome");
                 location.reload();
-                // a();
             }
             , error: function(result) {
                 const toastLiveExample = document.getElementById('liveToast')
@@ -1038,44 +1014,35 @@ $home='active';
         if (document.getElementById('exampleFormControlSelect11').value == 'Completed') {
             document.getElementById('episodes').value = "{{ $titleData->noOfEpisodes }}";
         }
-        // document.getElementById("btn-container").style.pointerEvents = "none";
         if (submitForm) {
             submitForm = false
+
             a();
         }
 
-        // document.getElementById("btn-container").style.pointerEvents = "auto";
     });
     document.getElementById('exampleFormControlSelect1').addEventListener('change', () => {
-        // document.getElementById("btn-container").style.pointerEvents = "none";
 
         if (submitForm) {
             submitForm = false
             a();
         }
 
-        // document.getElementById("btn-container").style.pointerEvents = "auto";
     });
     document.getElementById('episodes').addEventListener('change', () => {
-        // document.getElementById("btn-container").style.pointerEvents = "none";
 
         if (submitForm) {
             submitForm = false
             a();
         }
-
-        // document.getElementById("btn-container").style.pointerEvents = "auto";
     });
 
 
     jQuery('#addTitleFrm').click(function(e) {
-        // document.getElementById("btn-container").style.pointerEvents = "auto";
         if (submitForm) {
             submitForm = false
             a();
         }
-
-        // document.getElementById("btn-container").style.pointerEvents = "auto";
 
     });
 

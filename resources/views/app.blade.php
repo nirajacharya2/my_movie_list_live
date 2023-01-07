@@ -46,6 +46,7 @@
             padding: 1em;
             margin: 1em;
         }
+
         .genrebordeR {
             border: #E1E7F5 solid 1px;
             border-radius: 0.5em;
@@ -65,8 +66,6 @@
         a:hover {
             text-decoration: underline;
         }
-
-        
 
     </style>
     @stack('css')
