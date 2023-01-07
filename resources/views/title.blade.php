@@ -876,6 +876,8 @@ $home='active';
 
                         const toast = new bootstrap.Toast(toastLiveExample)
                         toast.show()
+                        submitForm = true
+
 
                     } else if (userInfo[0].ut_faviourite) {
                         var url = "{{ route('addToFaviourite',['title_id' => $titleData->title_id,'addOrRemove'=>0]) }}"

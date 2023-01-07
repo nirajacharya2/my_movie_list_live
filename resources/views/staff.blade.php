@@ -343,10 +343,7 @@
 
                 if (submitForm) {
                     document.getElementById('addToFaviourite').textContent = "loading..."
-
-
                     submitForm = false
-
                     if (faviourite) {
                         var url = "{{ route('addToFaviouriteStaff',['staff_id' => $staffDetail->staff_id,'addOrRemove'=>0]) }}"
                         // console.log(url)
@@ -369,7 +366,13 @@
                                         , delay: 5000
                                     })
                                     toast.show()
+                                    submitForm = true
+
+
+
+
                                 } else {
+                                    submitForm = true
                                     alert(result.responseErr);
                                 }
                             }
@@ -379,6 +382,8 @@
                                 document.getElementById('req-status').textContent = "❌"
                                 const toast = new bootstrap.Toast(toastLiveExample)
                                 toast.show()
+                                submitForm = true
+
 
                             }
                         , });
@@ -402,16 +407,26 @@
                                     document.getElementById('suscess-message').textContent = "Added to Favorites"
                                     const toast = new bootstrap.Toast(toastLiveExample)
                                     toast.show()
+                                    submitForm = true
+
+
                                 } else {
                                     alert(result.responseErr);
+                                    submitForm = true
+
+
                                 }
                             }
                             , error: function(result) {
+
+
                                 const toastLiveExample = document.getElementById('liveToast')
                                 document.getElementById('suscess-message').textContent = result
                                 document.getElementById('req-status').textContent = "❌"
                                 const toast = new bootstrap.Toast(toastLiveExample)
                                 toast.show()
+                                submitForm = true
+
 
                             }
                         , });
