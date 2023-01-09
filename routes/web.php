@@ -295,8 +295,8 @@ Route::controller(PasswordResetController::class)->group(function () {
 
 Route::group(['middleware' => ['AuthCheck']], function () {
     Route::get('/signup', function () {
-        return view('sugnupnotworking');
-        // return view('auth/signup');
+        // return view('sugnupnotworking');
+        return view('signup');
     })->name('signup');
     Route::get('/login', function () {
         return view('login');

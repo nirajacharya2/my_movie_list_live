@@ -733,7 +733,6 @@ $home='active';
                 , type: 'get'
                 , success: function(result) {
                     submitForm = true
-
                     userInfo = result.userTitelDetail;
                     document.getElementById('editDetails').classList.remove('hidden');
                     setEditDetails(userInfo);
@@ -743,8 +742,6 @@ $home='active';
                     toast.show()
                     changeComboStyle(document.getElementById('exampleFormControlSelect11').value);
                     document.getElementById('btn-container').classList.remove("bluryUnclick");
-
-
                 }
                 , error: function(result) {
                     submitForm = true
