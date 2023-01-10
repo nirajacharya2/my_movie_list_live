@@ -44,7 +44,7 @@ Create a fresh database
 ```bash 
 php artisan migrate:fresh --seed
 ```
-or get from [here](https://drive.google.com/file/d/1FEAxzixt7Oxifq2UNBUppMvM6QIbL3Zd/view?usp=sharing)
+or get database dump from [here](https://drive.google.com/file/d/1FEAxzixt7Oxifq2UNBUppMvM6QIbL3Zd/view?usp=sharing)
 
 Start the server
 ```bash 
